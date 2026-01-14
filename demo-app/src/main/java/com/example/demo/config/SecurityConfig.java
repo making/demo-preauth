@@ -26,7 +26,6 @@ public class SecurityConfig {
 			TokenUserDetailsService tokenUserDetailsService) {
 		PreAuthenticatedAuthenticationProvider provider = new PreAuthenticatedAuthenticationProvider();
 		provider.setPreAuthenticatedUserDetailsService(tokenUserDetailsService);
-		provider.setThrowExceptionWhenTokenRejected(false);
 		return provider;
 	}
 
@@ -39,7 +38,6 @@ public class SecurityConfig {
 	TokenPreAuthenticatedFilter tokenPreAuthenticatedFilter(AuthenticationManager authenticationManager) {
 		TokenPreAuthenticatedFilter filter = new TokenPreAuthenticatedFilter();
 		filter.setAuthenticationManager(authenticationManager);
-		filter.setCheckForPrincipalChanges(false);
 		// Redirect to clean URL (without token parameter) after successful authentication
 		filter.setAuthenticationSuccessHandler(
 				(request, response, authentication) -> response.sendRedirect(request.getRequestURI()));
