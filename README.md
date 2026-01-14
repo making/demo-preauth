@@ -3,6 +3,8 @@
 A demonstration project showing how to implement pre-authentication with Spring Security's
 `PreAuthenticatedAuthenticationProvider`.
 
+https://docs.spring.io/spring-security/reference/6.5/servlet/authentication/preauth.html
+
 ## Project Structure
 
 ```
