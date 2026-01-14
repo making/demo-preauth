@@ -3,7 +3,6 @@ package com.example.authsystem;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -21,15 +20,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.web.client.RestClient;
 
 import com.example.authsystem.token.ApiHeaders;
 import com.example.authsystem.token.TokenService;
@@ -60,10 +56,9 @@ class AuthSystemIntegrationTest {
 	private int port;
 
 	@Autowired
-	private TestRestTemplate restTemplate;
-
-	@Autowired
 	private TokenService tokenService;
+
+	private RestClient restClient;
 
 	private BrowserContext context;
 
@@ -140,7 +135,10 @@ class AuthSystemIntegrationTest {
 	}
 
 	@BeforeEach
-	void setUp() {
+	void setUp(@Autowired RestClient.Builder restClientBuilder) {
+		// RestClient that does not throw exceptions on error status codes
+		this.restClient = restClientBuilder.defaultStatusHandler(status -> true, (request, response) -> {
+		}).build();
 		context = browser.newContext();
 		page = context.newPage();
 		receivedTokens.clear();
@@ -322,18 +320,17 @@ class AuthSystemIntegrationTest {
 		assertThat(page).hasTitle("Auth System - Login");
 	}
 
-	// ========== Token Validation API Tests (RestTemplate) ==========
+	// ========== Token Validation API Tests (RestClient) ==========
 
 	@Test
 	void shouldValidateValidToken() {
 		String token = this.tokenService.generateToken("user1");
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.set(ApiHeaders.API_KEY, API_SECRET);
-
-		ResponseEntity<ValidateResponse> response = this.restTemplate.exchange(
-				baseUrl() + "/api/validate?token=" + token, HttpMethod.GET, new HttpEntity<>(headers),
-				ValidateResponse.class);
+		ResponseEntity<ValidateResponse> response = this.restClient.get()
+			.uri(baseUrl() + "/api/validate?token={token}", token)
+			.header(ApiHeaders.API_KEY, API_SECRET)
+			.retrieve()
+			.toEntity(ValidateResponse.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody()).isNotNull();
@@ -347,12 +344,11 @@ class AuthSystemIntegrationTest {
 	void shouldValidateAdminToken() {
 		String token = this.tokenService.generateToken("admin1");
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.set(ApiHeaders.API_KEY, API_SECRET);
-
-		ResponseEntity<ValidateResponse> response = this.restTemplate.exchange(
-				baseUrl() + "/api/validate?token=" + token, HttpMethod.GET, new HttpEntity<>(headers),
-				ValidateResponse.class);
+		ResponseEntity<ValidateResponse> response = this.restClient.get()
+			.uri(baseUrl() + "/api/validate?token={token}", token)
+			.header(ApiHeaders.API_KEY, API_SECRET)
+			.retrieve()
+			.toEntity(ValidateResponse.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody()).isNotNull();
@@ -365,12 +361,11 @@ class AuthSystemIntegrationTest {
 	void shouldRejectInvalidApiKey() {
 		String token = this.tokenService.generateToken("user1");
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.set(ApiHeaders.API_KEY, "wrong-api-key");
-
-		ResponseEntity<ValidateResponse> response = this.restTemplate.exchange(
-				baseUrl() + "/api/validate?token=" + token, HttpMethod.GET, new HttpEntity<>(headers),
-				ValidateResponse.class);
+		ResponseEntity<ValidateResponse> response = this.restClient.get()
+			.uri(baseUrl() + "/api/validate?token={token}", token)
+			.header(ApiHeaders.API_KEY, "wrong-api-key")
+			.retrieve()
+			.toEntity(ValidateResponse.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
 	}
@@ -379,20 +374,21 @@ class AuthSystemIntegrationTest {
 	void shouldRejectMissingApiKey() {
 		String token = this.tokenService.generateToken("user1");
 
-		ResponseEntity<ValidateResponse> response = this.restTemplate
-			.getForEntity(baseUrl() + "/api/validate?token=" + token, ValidateResponse.class);
+		ResponseEntity<ValidateResponse> response = this.restClient.get()
+			.uri(baseUrl() + "/api/validate?token={token}", token)
+			.retrieve()
+			.toEntity(ValidateResponse.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
 	}
 
 	@Test
 	void shouldRejectNonExistentToken() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set(ApiHeaders.API_KEY, API_SECRET);
-
-		ResponseEntity<ValidateResponse> response = this.restTemplate.exchange(
-				baseUrl() + "/api/validate?token=non-existent-token", HttpMethod.GET, new HttpEntity<>(headers),
-				ValidateResponse.class);
+		ResponseEntity<ValidateResponse> response = this.restClient.get()
+			.uri(baseUrl() + "/api/validate?token={token}", "non-existent-token")
+			.header(ApiHeaders.API_KEY, API_SECRET)
+			.retrieve()
+			.toEntity(ValidateResponse.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody()).isNotNull();
@@ -404,21 +400,22 @@ class AuthSystemIntegrationTest {
 	void shouldRejectAlreadyUsedToken() {
 		String token = this.tokenService.generateToken("user1");
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.set(ApiHeaders.API_KEY, API_SECRET);
-
 		// First validation - should succeed
-		ResponseEntity<ValidateResponse> firstResponse = this.restTemplate.exchange(
-				baseUrl() + "/api/validate?token=" + token, HttpMethod.GET, new HttpEntity<>(headers),
-				ValidateResponse.class);
+		ResponseEntity<ValidateResponse> firstResponse = this.restClient.get()
+			.uri(baseUrl() + "/api/validate?token={token}", token)
+			.header(ApiHeaders.API_KEY, API_SECRET)
+			.retrieve()
+			.toEntity(ValidateResponse.class);
 
 		assertThat(firstResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(firstResponse.getBody().valid()).isTrue();
 
 		// Second validation - should fail (token already used)
-		ResponseEntity<ValidateResponse> secondResponse = this.restTemplate.exchange(
-				baseUrl() + "/api/validate?token=" + token, HttpMethod.GET, new HttpEntity<>(headers),
-				ValidateResponse.class);
+		ResponseEntity<ValidateResponse> secondResponse = this.restClient.get()
+			.uri(baseUrl() + "/api/validate?token={token}", token)
+			.header(ApiHeaders.API_KEY, API_SECRET)
+			.retrieve()
+			.toEntity(ValidateResponse.class);
 
 		assertThat(secondResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(secondResponse.getBody()).isNotNull();
