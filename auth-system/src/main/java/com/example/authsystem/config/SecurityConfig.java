@@ -22,7 +22,7 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/login", "/api/validate")
+		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/login", "/api/validate", "/actuator/health")
 			.permitAll()
 			.anyRequest()
 			.authenticated())
