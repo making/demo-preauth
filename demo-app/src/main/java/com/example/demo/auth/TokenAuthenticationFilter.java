@@ -8,7 +8,7 @@ import org.springframework.security.web.authentication.preauth.AbstractPreAuthen
  * AbstractPreAuthenticatedProcessingFilter to integrate with Spring Security's
  * pre-authentication mechanism.
  */
-public class TokenPreAuthenticatedFilter extends AbstractPreAuthenticatedProcessingFilter {
+public class TokenAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter {
 
 	private static final String TOKEN_PARAMETER = "token";
 

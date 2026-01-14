@@ -3,7 +3,7 @@ package com.example.demo.config;
 import com.example.demo.DemoAppProperties;
 import com.example.demo.auth.AuthSystemLogoutSuccessHandler;
 import com.example.demo.auth.AuthSystemRedirectEntryPoint;
-import com.example.demo.auth.TokenPreAuthenticatedFilter;
+import com.example.demo.auth.TokenAuthenticationFilter;
 import com.example.demo.auth.TokenUserDetailsService;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
@@ -35,8 +35,8 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	TokenPreAuthenticatedFilter tokenPreAuthenticatedFilter(AuthenticationManager authenticationManager) {
-		TokenPreAuthenticatedFilter filter = new TokenPreAuthenticatedFilter();
+	TokenAuthenticationFilter tokenAuthenticationFilter(AuthenticationManager authenticationManager) {
+		TokenAuthenticationFilter filter = new TokenAuthenticationFilter();
 		filter.setAuthenticationManager(authenticationManager);
 		// Redirect to clean URL (without token parameter) after successful authentication
 		filter.setAuthenticationSuccessHandler(
@@ -45,7 +45,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http, TokenPreAuthenticatedFilter tokenPreAuthenticatedFilter,
+	SecurityFilterChain securityFilterChain(HttpSecurity http, TokenAuthenticationFilter tokenPreAuthenticatedFilter,
 			ObjectProvider<DemoAppProperties> propertiesProvider) throws Exception {
 		http
 		// @formatter:off
