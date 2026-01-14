@@ -5,8 +5,17 @@ Provides user authentication, token issuance, and token validation functionality
 
 ## Getting Started
 
+### Option 1: Run with Maven
+
 ```bash
 ./mvnw spring-boot:run
+```
+
+### Option 2: Build and run JAR
+
+```bash
+./mvnw clean package -DskipTests
+java -jar target/auth-system-0.0.1-SNAPSHOT.jar
 ```
 
 The server starts on port 9999 by default.
