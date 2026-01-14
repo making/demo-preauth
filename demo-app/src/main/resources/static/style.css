@@ -1,0 +1,234 @@
+/* Base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background-color: #f7f7f7;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* Page header */
+.page-header {
+    max-width: 900px;
+    margin: 0 auto 30px;
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.breadcrumb a {
+    color: #6E1E29;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+.page-title.error {
+    color: #6E1E29;
+}
+
+/* Container */
+.container {
+    background-color: white;
+    padding: 40px;
+    border: 1px solid #ddd;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.container.accent {
+    border: 2px solid #6E1E29;
+}
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.container h2.accent {
+    color: #6E1E29;
+}
+
+/* Messages */
+.message {
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.message strong {
+    font-weight: 600;
+}
+
+.message.primary {
+    background-color: #fdf2f3;
+    color: #6E1E29;
+    border: 1px solid #f5d0d4;
+}
+
+/* User info */
+.user-info {
+    margin-bottom: 24px;
+}
+
+.user-info dt {
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.user-info dd {
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    background-color: #fafafa;
+    border: 1px solid #eee;
+}
+
+/* Content area */
+.content-area {
+    background-color: #fafafa;
+    padding: 24px;
+    border: 1px solid #eee;
+    margin-bottom: 24px;
+}
+
+.content-area.accent {
+    background-color: #fdf2f3;
+    border: none;
+    border-left: 4px solid #6E1E29;
+}
+
+.content-area h3 {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.content-area.accent h3 {
+    color: #6E1E29;
+}
+
+.content-area p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Navigation links */
+.nav-links {
+    margin: 30px 0;
+    padding: 24px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.nav-links a {
+    display: block;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    background-color: #6E1E29;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.nav-links a:last-child {
+    margin-bottom: 0;
+}
+
+.nav-links a:hover {
+    background-color: #5A171F;
+}
+
+.nav-links a.outline {
+    background-color: white;
+    color: #6E1E29;
+    border: 2px solid #6E1E29;
+}
+
+.nav-links a.outline:hover {
+    background-color: #6E1E29;
+    color: white;
+}
+
+/* Buttons */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn.primary {
+    background-color: #6E1E29;
+    color: white;
+}
+
+.btn.primary:hover {
+    background-color: #5A171F;
+}
+
+.btn.secondary {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.btn.secondary:hover {
+    background-color: #e0e0e0;
+}
+
+/* Forms */
+.logout-form {
+    margin-top: 24px;
+}
+
+/* Error page specific */
+.error-code {
+    text-align: center;
+    font-size: 72px;
+    font-weight: bold;
+    color: #6E1E29;
+    margin-bottom: 16px;
+}
+
+.error-title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 30px;
+}

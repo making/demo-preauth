@@ -4,110 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo App - Home</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .home-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-            font-size: 24px;
-        }
-        .welcome-message {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            padding: 16px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .user-info {
-            margin-bottom: 20px;
-        }
-        .user-info dt {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-        .user-info dd {
-            color: #333;
-            font-size: 16px;
-            margin-bottom: 16px;
-            padding: 8px 12px;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-        }
-        .nav-links {
-            margin: 30px 0;
-            padding: 20px 0;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-        }
-        .nav-links a {
-            display: block;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            background-color: #2196f3;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            text-align: center;
-            transition: background-color 0.2s;
-        }
-        .nav-links a:hover {
-            background-color: #1976d2;
-        }
-        .nav-links a.admin-link {
-            background-color: #ff9800;
-        }
-        .nav-links a.admin-link:hover {
-            background-color: #f57c00;
-        }
-        .logout-form {
-            margin-top: 20px;
-        }
-        button[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #ef5350;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        button[type="submit"]:hover {
-            background-color: #d32f2f;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-    <div class="home-container">
-        <h1>Welcome to Demo Application</h1>
+    <div class="page-header">
+        <div class="breadcrumb">Top &gt; Home</div>
+        <h1 class="page-title">Home</h1>
+    </div>
 
-        <div class="welcome-message">
+    <div class="container">
+        <h2>Demo Application</h2>
+
+        <div class="message primary">
             Welcome, <strong th:text="${username}">User</strong>!
         </div>
 
@@ -120,11 +28,11 @@
 
         <div class="nav-links">
             <a th:href="@{/dashboard}">Dashboard</a>
-            <a th:href="@{/admin}" class="admin-link" sec:authorize="hasRole('ADMIN')">Admin Page</a>
+            <a th:href="@{/admin}" class="outline" sec:authorize="hasRole('ADMIN')">Admin Page</a>
         </div>
 
         <form class="logout-form" th:action="@{/logout}" method="post">
-            <button type="submit">Logout</button>
+            <button type="submit" class="btn secondary">Logout</button>
         </form>
     </div>
 </body>

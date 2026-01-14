@@ -75,7 +75,7 @@ class DemoAppIntegrationTest {
 
 		// Should be redirected to auth-system login page
 		assertThat(this.page).hasTitle("Auth System - Login");
-		assertThat(this.page.locator("h1")).hasText("Auth System Login");
+		assertThat(this.page.locator("h1")).hasText("Login");
 	}
 
 	@Test
@@ -93,7 +93,7 @@ class DemoAppIntegrationTest {
 		// Should be redirected back to demo-app home page
 		this.page.waitForURL(url -> url.startsWith(baseUrl() + "/"));
 		assertThat(this.page).hasTitle("Demo App - Home");
-		assertThat(this.page.locator("h1")).hasText("Welcome to Demo Application");
+		assertThat(this.page.locator("h1")).hasText("Home");
 	}
 
 	@Test
@@ -108,7 +108,7 @@ class DemoAppIntegrationTest {
 		this.page.waitForURL(url -> url.startsWith(baseUrl() + "/"));
 
 		// Verify user info is displayed correctly
-		assertThat(this.page.locator(".welcome-message strong")).hasText("user1");
+		assertThat(this.page.locator(".message strong")).hasText("user1");
 		assertThat(this.page.locator(".user-info")).containsText("user1");
 		assertThat(this.page.locator(".user-info")).containsText("ROLE_USER");
 	}
@@ -125,7 +125,7 @@ class DemoAppIntegrationTest {
 		this.page.waitForURL(url -> url.startsWith(baseUrl() + "/"));
 
 		// Verify admin roles are displayed
-		assertThat(this.page.locator(".welcome-message strong")).hasText("admin1");
+		assertThat(this.page.locator(".message strong")).hasText("admin1");
 		assertThat(this.page.locator(".user-info")).containsText("ROLE_USER");
 		assertThat(this.page.locator(".user-info")).containsText("ROLE_ADMIN");
 	}
@@ -150,7 +150,7 @@ class DemoAppIntegrationTest {
 		this.page.waitForURL(baseUrl() + "/dashboard");
 		assertThat(this.page).hasTitle("Demo App - Dashboard");
 		assertThat(this.page.locator("h1")).hasText("Dashboard");
-		assertThat(this.page.locator(".info-message strong")).hasText("user1");
+		assertThat(this.page.locator(".message strong")).hasText("user1");
 	}
 
 	// ========== Admin Page Access Tests ==========
@@ -172,8 +172,8 @@ class DemoAppIntegrationTest {
 		// Verify admin page is displayed
 		this.page.waitForURL(baseUrl() + "/admin");
 		assertThat(this.page).hasTitle("Demo App - Admin");
-		assertThat(this.page.locator("h1")).hasText("Admin Page");
-		assertThat(this.page.locator(".warning-message strong")).hasText("admin1");
+		assertThat(this.page.locator("h1")).hasText("Admin");
+		assertThat(this.page.locator(".message strong")).hasText("admin1");
 	}
 
 	@Test
@@ -271,7 +271,7 @@ class DemoAppIntegrationTest {
 		assertThat(this.page).hasTitle("Demo App - Home");
 
 		// User should still be authenticated
-		assertThat(this.page.locator(".welcome-message strong")).hasText("user1");
+		assertThat(this.page.locator(".message strong")).hasText("user1");
 	}
 
 	// ========== Navigation Tests ==========

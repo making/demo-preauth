@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo App - Access Denied</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <div class="page-header">
+        <div class="breadcrumb"><a th:href="@{/}">Home</a> &gt; Error</div>
+        <h1 class="page-title error">Access Denied</h1>
+    </div>
+
+    <div class="container accent">
+        <div class="error-code">403</div>
+        <div class="error-title">Access Denied</div>
+
+        <div class="message primary">
+            You do not have permission to access this page.<br>
+            Please contact your administrator if you believe this is an error.
+        </div>
+
+        <div class="content-area">
+            <h3>What happened?</h3>
+            <p>The page you are trying to access requires special permissions that your account does not have. This could be because the page is restricted to administrators or specific user roles.</p>
+        </div>
+
+        <a th:href="@{/}" class="btn primary">Back to Home</a>
+    </div>
+</body>
+</html>

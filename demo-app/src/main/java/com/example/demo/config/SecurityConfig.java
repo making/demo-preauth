@@ -50,7 +50,7 @@ public class SecurityConfig {
 		http
 		// @formatter:off
 			.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/actuator/health").permitAll()
+				.requestMatchers("/actuator/health", "/*.css").permitAll()
 				.requestMatchers("/admin").hasRole("ADMIN")
 				.anyRequest().authenticated())
 			// @formatter:on

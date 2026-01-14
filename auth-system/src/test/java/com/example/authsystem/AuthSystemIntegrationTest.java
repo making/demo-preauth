@@ -166,7 +166,7 @@ class AuthSystemIntegrationTest {
 		page.navigate(baseUrl() + "/login");
 
 		assertThat(page).hasTitle("Auth System - Login");
-		assertThat(page.locator("h1")).hasText("Auth System Login");
+		assertThat(page.locator("h1")).hasText("Login");
 		assertThat(page.getByLabel("Username")).isVisible();
 		assertThat(page.getByLabel("Password")).isVisible();
 		assertThat(page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Login"))).isVisible();
@@ -203,8 +203,8 @@ class AuthSystemIntegrationTest {
 		// Should be redirected to home page (no external redirect)
 		page.waitForURL(baseUrl() + "/");
 		assertThat(page).hasTitle("Auth System - Home");
-		assertThat(page.locator(".welcome-message")).containsText("Welcome");
-		assertThat(page.locator(".welcome-message strong")).hasText("user1");
+		assertThat(page.locator(".message")).containsText("Welcome");
+		assertThat(page.locator(".message strong")).hasText("user1");
 	}
 
 	@Test
@@ -217,7 +217,7 @@ class AuthSystemIntegrationTest {
 
 		page.waitForURL(baseUrl() + "/");
 		assertThat(page).hasTitle("Auth System - Home");
-		assertThat(page.locator(".welcome-message strong")).hasText("admin1");
+		assertThat(page.locator(".message strong")).hasText("admin1");
 		assertThat(page.locator(".user-info")).containsText("ROLE_USER");
 		assertThat(page.locator(".user-info")).containsText("ROLE_ADMIN");
 	}

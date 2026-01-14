@@ -1,0 +1,249 @@
+/* Base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background-color: #f7f7f7;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* Page header */
+.page-header {
+    max-width: 900px;
+    margin: 0 auto 30px;
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.breadcrumb a {
+    color: #6E1E29;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Container */
+.container {
+    background-color: white;
+    padding: 40px;
+    border: 1px solid #ddd;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Messages */
+.message {
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.message strong {
+    font-weight: 600;
+}
+
+.message.primary {
+    background-color: #fdf2f3;
+    color: #6E1E29;
+    border: 1px solid #f5d0d4;
+}
+
+.message.error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    font-size: 14px;
+}
+
+/* User info */
+.user-info {
+    margin-bottom: 24px;
+}
+
+.user-info dt {
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.user-info dd {
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    background-color: #fafafa;
+    border: 1px solid #eee;
+}
+
+/* Content area */
+.content-area {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.content-area h3 {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    transition: border-color 0.2s;
+    background-color: #fff;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: #999;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #6E1E29;
+}
+
+/* Buttons */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn.primary {
+    background-color: #6E1E29;
+    color: white;
+    margin-top: 10px;
+}
+
+.btn.primary:hover {
+    background-color: #5A171F;
+}
+
+.btn.outline {
+    background-color: white;
+    color: #6E1E29;
+    border: 2px solid #6E1E29;
+}
+
+.btn.outline:hover {
+    background-color: #6E1E29;
+    color: white;
+}
+
+/* Forms */
+.logout-form {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid #eee;
+}
+
+/* Test users section */
+.test-users {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid #eee;
+}
+
+.test-users h3 {
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.test-users ul {
+    list-style: none;
+}
+
+.test-users li {
+    padding: 6px 0;
+    color: #666;
+    font-size: 13px;
+    font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+}
+
+.test-users li span.role {
+    color: #6E1E29;
+    font-weight: 500;
+}
+
+/* Footer section */
+.footer-section {
+    max-width: 900px;
+    margin: 40px auto 0;
+    padding: 30px;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+.footer-section h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.footer-section p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+}

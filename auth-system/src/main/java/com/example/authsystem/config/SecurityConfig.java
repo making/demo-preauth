@@ -22,10 +22,12 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/login", "/api/validate", "/actuator/health")
-			.permitAll()
-			.anyRequest()
-			.authenticated())
+		http
+		// @formatter:off
+			.authorizeHttpRequests(authorize -> authorize
+				.requestMatchers("/login", "/api/validate", "/actuator/health", "/*.css").permitAll()
+				.anyRequest().authenticated())
+			// @formatter:on
 			.formLogin(form -> form.loginPage("/login")
 				.loginProcessingUrl("/login")
 				.defaultSuccessUrl("/login-success", true)
